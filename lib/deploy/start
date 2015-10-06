@@ -68,7 +68,7 @@ if [[ $new_app = true ]] ; then
   full_server_name=$(pwd)/.deploy/$host_user_name@$host_name
 
   if [ ! -f $full_server_name ]; then
-    touch $full_server_name
+    echo -n '' > $full_server_name
   fi
 
   if grep -q "$new_app_name" "$full_server_name"; then
