@@ -28,12 +28,20 @@ Configurações que o plugin irá fazer:
 
 ## Deploy de aplicação
 
-Usage: `/opt/.unix_deploy/bin/unix_deploy_start`
+Entre na pasta de seu projeto: `cd my_user/my_rails_project`
+
+###Digite: 
+
+`/opt/.unix_deploy/bin/unix_deploy_start -i`
+
+`/opt/.unix_deploy/bin/unix_deploy_start -n`
+
+###Opções disponíveis
 	
 	[-h] => Ajuda
 	[-i] => Iniciar plugin no projeto
 	[-g] => Executar o deploy sem incrementar versão do código fonte e sem efetuar push
-	[-n] => Criar nova aplicacao para realizar o deploy
+	[-n] => Criar nova aplicação para realizar o deploy
 > Se chamado sem parâmetro irá executar o **deploy** nos servidores e aplicações configuradas dentro da pasta **.deploy** do projeto.
 
 Ações que o deploy irá fazer:

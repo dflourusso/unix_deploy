@@ -62,9 +62,15 @@ sudo apt-get update
 sudo apt-get install -y nginx-extras passenger
 # sudo /home/$USER/.rbenv/shims/passenger-install-nginx-module
 
+passenger_root_old='# passenger_root /usr/lib/ruby/vendor_ruby/phusion_passenger/locations.ini;'
+passenger_root_new="passenger_root $(/usr/bin/passenger-config --root);"
+sudo /usr/bin/replace $passenger_root_old $passenger_root_new -- /etc/nginx/nginx.conf
+
+echo_blue 'Reiniciando nginx...'
+sudo service nginx restart
 echo ''
-echo_yellow 'Instalacao OK, agora abra => /etc/nginx/nginx.conf'
-echo_yellow 'Altere "passenger_root" e "passenger_ruby" para seus locais corretos'
+# echo_yellow 'Instalacao OK, agora abra => /etc/nginx/nginx.conf'
+# echo_yellow 'Altere "passenger_root" e "passenger_ruby" para seus locais corretos'
 # passenger_root $(/home/$USER/.rbenv/shims/passenger-config --root);
 # passenger_root /home/$USER/.rbenv/versions/2.2.2/lib/ruby/gems/2.2.0/gems/passenger-5.0.20;
 # passenger_ruby $(/home/$USER/.rbenv/shims/passenger-config about ruby-command | grep passenger_ruby);
