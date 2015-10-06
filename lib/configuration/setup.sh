@@ -31,5 +31,12 @@ fi
 # Root
 echo_yellow "Adicionando sua public key usuario \"root\"..."
 mkdir -p ~/.ssh
-echo $id_rsa_pub >> ~/.ssh/authorized_keys
+if [ ! -f ~/.ssh/authorized_keys ]; then
+    touch ~/.ssh/authorized_keys
+fi
+if grep -q "$id_rsa_pub" ~/.ssh/authorized_keys ; then
+    echo "App $id_rsa_pub ja existe."
+else
+    echo $id_rsa_pub >> ~/.ssh/authorized_keys
+fi
 
