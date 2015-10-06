@@ -3,6 +3,8 @@
 # Parar se ocorrer erro
 set -e
 
+# echo $(pwd)
+# exit
 
 usage() {
   echo "Usage: $0
@@ -35,7 +37,7 @@ while getopts hign o; do
 done
 
 
-if [ $no_git = true ] ; then
+if [[ $no_git = true ]] ; then
   echo $'\e[32mParametro "-g", pulando push do git e incremento de versao!\e[0m'
 else
   # Traz atualizações do develop para o master, ignorando conflitos
@@ -56,14 +58,14 @@ else
 fi
 
 
-if [ $new_app = true ] ; then
+if [[ $new_app = true ]] ; then
   echo $'\e[34mCriando nova aplicacao...\e[0m'
   read  -p "Entre com o \"HOST\" do servidor: " host_name
   read  -p "Entre com o \"USUARIO\" do servidor: " host_user_name
   read  -p "Entre com o nome de sua aplicacao: " new_app_name
 
   server_name=$host_user_name@$host_name
-  full_server_name=$host_user_name@$host_name
+  full_server_name=$(pwd)/.deploy/$host_user_name@$host_name
 
   if [ ! -f $full_server_name ]; then
     touch $full_server_name

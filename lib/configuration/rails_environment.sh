@@ -51,7 +51,7 @@ echo_blue "Instalando rails..."
 
 # Generate SSH keys
 echo_blue "Criando ssh keys..."
-sudo ssh-keygen -t rsa
+ssh-keygen -t rsa
 
 # Install Passenger and Nginx
 echo_blue "Instalando passenger e nginx..."
