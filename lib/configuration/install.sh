@@ -36,5 +36,6 @@ else
 fi
 
 grep -q "$export_content" "$file" || sudo echo "$export_content" >> "$file"
+export PATH=$PATH:/opt/.unix_deploy/bin
 
 echo -e "\033[32mAdicionado \"/opt/.unix_deploy/bin\" no PATH para suporte na linha de comando\033[0m"
