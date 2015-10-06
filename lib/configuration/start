@@ -1,0 +1,16 @@
+#!/bin/bash
+
+# Parar se ocorrer algum erro
+set -e
+
+id_rsa_pub=$1
+
+# Source functions
+source $(dirname $(dirname $(dirname $0)))"/utils/colors.sh"
+dir_root=$(dirname $0)
+
+# Source and execute
+source "$dir_root/setup.sh"
+source "$dir_root/mysql.sh"
+source "$dir_root/users.sh"
+

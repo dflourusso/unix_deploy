@@ -1,0 +1,102 @@
+#!/bin/bash
+
+# Parar se ocorrer erro
+set -e
+
+
+usage() {
+  echo "Usage: $0
+    [-h] => Ajuda
+    [-i] => Iniciar plugin no projeto
+    [-g] => Executar o deploy sem incrementar versao do codigo fonte e sem efetuar push
+    [-n] => Criar nova aplicacao para realizar o deploy" 1>&2
+    exit 1
+}
+
+init() {
+  echo_blue 'Iniciando configuracao de "unix_deploy" para o projeto atual'
+  mkdir -p $(pwd)/.deploy
+  exit 1
+}
+
+while getopts hign o; do
+    case "${o}" in
+        h)
+            usage;;
+        i)
+            init;;
+        g)
+            no_git=true;;
+        n)
+            new_app=true;;
+        *)
+            usage;;
+    esac
+done
+
+
+if [ $no_git = true ] ; then
+  echo $'\e[32mParametro "-g", pulando push do git e incremento de versao!\e[0m'
+else
+  # Traz atualizações do develop para o master, ignorando conflitos
+  git checkout master
+  git merge --no-ff --rerere-autoupdate --no-edit -v --stat -X theirs develop
+
+  # salva a tag da versão atual
+  git tag -a -m "v$(bump current | awk '{print $3}')" $(bump current | awk '{print $3}') master
+
+  # Incrementa versão no develop
+  git checkout develop
+  bump patch
+
+  # Atualiza repositório remoto
+  git push -v origin master:master
+  git push -v origin develop:develop
+  git push -v --tags origin
+fi
+
+
+if [ $new_app = true ] ; then
+  echo $'\e[34mCriando nova aplicacao...\e[0m'
+  read  -p "Entre com o \"HOST\" do servidor: " host_name
+  read  -p "Entre com o \"USUARIO\" do servidor: " host_user_name
+  read  -p "Entre com o nome de sua aplicacao: " new_app_name
+
+  server_name=$host_user_name@$host_name
+  full_server_name=$host_user_name@$host_name
+
+  if [ ! -f $full_server_name ]; then
+    touch $full_server_name
+  fi
+
+  if grep -q "$new_app_name" "$full_server_name"; then
+   echo "App $new_app_name ja existe."
+  else
+    echo -e "$new_app_name" >> $full_server_name
+    ssh -t $server_name "/opt/.unix_deploy/lib/deploy/deploy.sh $new_app_name"
+  fi
+  exit 1
+fi
+
+if [ -d $(pwd)/.deploy/ ] && [ $(ls -1 $(pwd)/.deploy/ | wc -l) -gt 0 ]
+then
+  for file in $(pwd)/.deploy/*@*
+  do
+    server_name=$(basename $file)
+    read -p "$(echo -e "\033[34mDeseja realizar deploy no servidor "$server_name"?\033[0m (y/n): ")" do_deploy
+    if [ "$do_deploy" == 'y' ] ; then
+      while read app_name <&3
+      do
+        echo_yellow "Executando deploy no servidor: \"$server_name\" e aplicacao \"$app_name\"..."
+        ssh -t "$server_name" "/opt/.unix_deploy/lib/deploy/deploy.sh $app_name"
+      done 3< $file
+    fi
+  done
+else
+    echo_yellow 'Nenhum servidor configurado. Execute o comando novamente com a opcao "-n" para configurar um servidor'
+fi
+
+
+
+
+

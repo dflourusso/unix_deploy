@@ -1,0 +1,9 @@
+#!/bin/bash
+
+# Parar se ocorrer algum erro
+set -e
+
+source $(dirname $(dirname $0))"/utils/colors.sh"
+
+source $(dirname $(dirname $0))"/lib/deploy/start"
+
