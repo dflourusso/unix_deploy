@@ -7,7 +7,7 @@ echo_blue "Instalando configuracoes basicas do servidor..."
 
 # Install basic
 apt-get update
-apt-get install -y sudo vim curl wget htop apt-transport-https ca-certificates
+apt-get install -y sudo vim curl wget htop zip apt-transport-https ca-certificates
 
 # Add Swap to server
 if [ ! -e /swapfile ] ; then
