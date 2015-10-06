@@ -11,9 +11,9 @@ echo "Deploy na aplicacao $APP_NAME"
 echo $'\e[32m###################################\e[0m'
 echo ''
 
-if [ -d ~/apps/$APP_NAME ] ; then
+if [ -d /home/$USER/apps/$APP_NAME ] ; then
   # Ir para diretorio do projeto
-  cd ~/apps/$APP_NAME/
+  cd /home/$USER/apps/$APP_NAME/
 
   echo $'\e[34mAtualizando repositorio...\e[0m'
   # Baixa atualizacoes sobrescrevendo todas as alteracoes locais
@@ -38,10 +38,10 @@ else
   echo $'\e[34mCriando e configurando aplicacao...\e[0m'
 
   # Criar pasta apps se nao existir
-  mkdir -p ~/apps
+  mkdir -p /home/$USER/apps
 
   # Ir para pasta apps
-  cd ~/apps
+  cd /home/$USER/apps
 
   # Clonar projeto
   echo 'Entre com a URL do repositorio de seu projeto'
