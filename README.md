@@ -5,7 +5,7 @@
 `bash <(curl -s https://raw.githubusercontent.com/dflourusso/unix_deploy/master/lib/configuration/install.sh)`
 
 ## Configurando um servidor:
-`unix_deploy_setup_server`
+`/opt/.unix_deploy/bin/unix_deploy_config`
 	
 Ao executar este comando o *plugin* irá solicitar um *host* para efetuar a configuração.
 
