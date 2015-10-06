@@ -64,7 +64,7 @@ sudo apt-get install -y nginx-extras passenger
 
 passenger_root_old='# passenger_root /usr/lib/ruby/vendor_ruby/phusion_passenger/locations.ini;'
 passenger_root_new="passenger_root $(/usr/bin/passenger-config --root);"
-sudo /usr/bin/replace $passenger_root_old $passenger_root_new -- /etc/nginx/nginx.conf
+sudo /usr/bin/replace "$passenger_root_old" "$passenger_root_new" -- /etc/nginx/nginx.conf
 
 echo_blue 'Reiniciando nginx...'
 sudo service nginx restart
