@@ -37,7 +37,7 @@ if [ -d /home/$USER/apps/$APP_NAME ] ; then
   _whenever
 
   echo $'\e[34mReiniciando aplicacao...\e[0m'
-  /usr/bin/passenger-config restart-app $(pwd)
+  sudo /usr/bin/passenger-config restart-app $(pwd)
 
   echo $'\e[32mDeploy executado com sucesso!\e[0m'
 
