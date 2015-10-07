@@ -14,7 +14,6 @@ echo ''
 _whenever() {
   if [ -f config/schedule.rb ]; then
     echo $'\e[34mWhenever atualizando crontab...\e[0m'
-    type whenever || /home/$USER/.rbenv/shims/gem install whenever
     /home/$USER/.rbenv/shims/whenever --update-crontab
   fi
 }

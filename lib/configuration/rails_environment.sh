@@ -47,6 +47,10 @@ echo_blue "Instalando bundler..."
 echo_blue "Instalando rails..."
 /home/$USER/.rbenv/shims/gem install rails
 
+# Install Whenever
+echo_blue "Instalando whenever..."
+/home/$USER/.rbenv/shims/gem install whenever
+
 ~/.rbenv/bin/rbenv rehash
 
 # Generate SSH keys
