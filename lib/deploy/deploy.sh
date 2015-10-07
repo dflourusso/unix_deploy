@@ -11,6 +11,14 @@ echo "Deploy na aplicacao $APP_NAME"
 echo $'\e[32m###################################\e[0m'
 echo ''
 
+_whenever() {
+  if [ -f config/schedule.rb ]; then
+    echo $'\e[34mWhenever atualizando crontab...\e[0m'
+    type whenever || /home/$USER/.rbenv/shims/gem install whenever
+    /home/$USER/.rbenv/shims/whenever --update-crontab
+  fi
+}
+
 if [ -d /home/$USER/apps/$APP_NAME ] ; then
   # Ir para diretorio do projeto
   cd /home/$USER/apps/$APP_NAME/
@@ -27,10 +35,7 @@ if [ -d /home/$USER/apps/$APP_NAME ] ; then
   echo $'\e[34mCompilando assets, removendo assets antigos, executando migracao do banco de dados...\e[0m'
   /home/$USER/.rbenv/shims/bundle exec rake assets:precompile assets:clean db:migrate RAILS_ENV=production
 
-  if [ -f config/schedule.rb ]; then
-    echo $'\e[34mWhenever atualizando crontab...\e[0m'
-    whenever --update-crontab
-  fi
+  _whenever
 
   echo $'\e[34mReiniciando aplicacao...\e[0m'
   /usr/bin/passenger-config restart-app $(pwd)
@@ -116,10 +121,7 @@ else
   echo $'\e[34mCompilando assets...\e[0m'
   RAILS_ENV=production /home/$USER/.rbenv/shims/bundle exec rake assets:precompile assets:clean
 
-  if [ -f config/schedule.rb ]; then
-    echo $'\e[34mWhenever atualizando crontab...\e[0m'
-    whenever --update-crontab
-  fi
+  _whenever
 
   # Iniciando aplicacao
   /usr/bin/curl $APP_DOMAIN > /dev/null
