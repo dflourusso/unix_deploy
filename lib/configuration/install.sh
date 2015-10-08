@@ -35,7 +35,7 @@ else
   echo -e "\033[33mUtilize \"~/.unix_deploy/<COMMAND>\" para executar alguma acao\033[0m"
 fi
 
-grep -q "$export_content" "$file" || sudo echo "$export_content" >> "$file"
+grep -q "$export_content" "$file" || echo "$export_content" >> "$file"
 export PATH=$PATH:~/.unix_deploy/bin
 
 echo -e "\033[32mAdicionado \"~/.unix_deploy/bin\" no PATH para suporte na linha de comando\033[0m"
