@@ -53,6 +53,7 @@ else
   cd /home/$USER/apps
 
   # Clonar projeto
+  echo -e "\033[34mId rsa para adicionar no 'deployment keys' de seu projeto: \033[0m$(cat /home/$USER/.ssh/id_rsa.pub)"
   echo 'Entre com a URL do repositorio de seu projeto'
   read  -p "Tenha certeza que tem acesso a ele: " APP_REPOSITORY
   echo $'\e[34mClonando projeto...\e[0m'
@@ -99,10 +100,10 @@ else
 
   while [[ "$ENV_VARS" != 'n' ]]
   do
-    read -p "Nome da variavel: " ENV_VAR_NAME
-    read -p "Valor da variavel: " ENV_VAR_VALUE
+    read -p "Nome da variavel de ambiente: " ENV_VAR_NAME
+    read -p "Valor da variavel de ambiente: " ENV_VAR_VALUE
     echo -e "    passenger_env_var $ENV_VAR_NAME $ENV_VAR_VALUE;" | sudo tee --append $APP_NGINX_CONF
-    read -p "Adicionar mais? (y/n): " ENV_VARS
+    read -p "Adicionar mais variaveis de ambiente? (y/n): " ENV_VARS
   done
   echo -e "\n}" | sudo tee --append $APP_NGINX_CONF
 
