@@ -5,8 +5,8 @@
 `bash <(curl -s https://raw.githubusercontent.com/dflourusso/unix_deploy/master/lib/configuration/install.sh)`
 
 ## Configurando um servidor:
-`/opt/.unix_deploy/bin/unix_deploy_config`
-	
+`~/.unix_deploy/bin/unix_deploy_config`
+
 Ao executar este comando o *plugin* irá solicitar um *host* para efetuar a configuração.
 
 Configurações que o plugin irá fazer:
@@ -30,14 +30,14 @@ Configurações que o plugin irá fazer:
 
 Entre na pasta de seu projeto: `cd my_user/my_rails_project`
 
-###Digite: 
+###Digite:
 
-`/opt/.unix_deploy/bin/unix_deploy_start -i`
+`~/.unix_deploy/bin/unix_deploy_start -i`
 
-`/opt/.unix_deploy/bin/unix_deploy_start -n`
+`~/.unix_deploy/bin/unix_deploy_start -n`
 
 ###Opções disponíveis
-	
+
 	[-h] => Ajuda
 	[-i] => Iniciar plugin no projeto
 	[-g] => Executar o deploy sem incrementar versão do código fonte e sem efetuar push

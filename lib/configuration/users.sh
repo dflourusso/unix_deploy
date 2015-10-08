@@ -18,7 +18,7 @@ do
   echo $id_rsa_pub >> /home/$user_name/.ssh/authorized_keys
   sudo chown $user_name /home/$user_name/.ssh/authorized_keys
 
-  sudo -H -u $user_name bash -c "/opt/.unix_deploy/lib/configuration/rails_environment.sh"
+  sudo -H -u $user_name bash -c "~/.unix_deploy/lib/configuration/rails_environment.sh"
   echo_green "Usuario $user_name adicionado e configurado com sucesso!"
 
   read -p "Adicionar mais usuarios? (y/n): " add_user

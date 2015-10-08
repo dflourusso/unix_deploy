@@ -10,7 +10,7 @@ source $(dirname $(dirname $(dirname $0)))"/utils/colors.sh"
 echo_blue "Ambiente Ruby on Rails"
 
 echo_blue 'Criando link de "unix_deploy"'
-sudo ln -s /opt/.unix_deploy ~/.unix_deploy
+sudo ln -s ~/.unix_deploy ~/.unix_deploy
 
 # Instal Ruby dependencies
 echo_blue "Instalando dependencias..."

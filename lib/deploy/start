@@ -74,7 +74,7 @@ if [[ $new_app = true ]] ; then
    echo "App $new_app_name ja existe."
   else
     echo -e "$new_app_name" >> $full_server_name
-    ssh -t $server_name "/opt/.unix_deploy/lib/deploy/deploy.sh $new_app_name"
+    ssh -t $server_name "~/.unix_deploy/lib/deploy/deploy.sh $new_app_name"
   fi
   exit 1
 fi
@@ -89,7 +89,7 @@ then
       while read app_name <&3
       do
         echo_yellow "Executando deploy no servidor: \"$server_name\" e aplicacao \"$app_name\"..."
-        ssh -t "$server_name" "/opt/.unix_deploy/lib/deploy/deploy.sh $app_name"
+        ssh -t "$server_name" "~/.unix_deploy/lib/deploy/deploy.sh $app_name"
       done 3< $file
     fi
   done

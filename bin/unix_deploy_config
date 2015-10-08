@@ -9,10 +9,10 @@ read -p "Entre com o HOST do servidor que deseja configurar: " remote_host
 echo_blue "Instalando projeto no host \"$remote_host\""
 
 
-ssh -T root@$remote_host "bash -s" < "/opt/.unix_deploy/lib/configuration/install.sh"
+ssh -T root@$remote_host "bash -s" < "~/.unix_deploy/lib/configuration/install.sh"
 
 id_rsa_pub=$(cat ~/.ssh/id_rsa.pub)
-ssh -t root@$remote_host "/opt/.unix_deploy/lib/configuration/start '$id_rsa_pub'"
+ssh -t root@$remote_host "~/.unix_deploy/lib/configuration/start '$id_rsa_pub'"
 
 echo_green 'Instalacao concluida com sucesso!'
 
