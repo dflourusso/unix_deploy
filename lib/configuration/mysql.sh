@@ -11,7 +11,9 @@ if [ "$install_mysql" == 'y' ] ; then
   sudo apt-get install -y mysql-server mysql-client libmysqlclient-dev
   sudo mysql_install_db
   sudo mysql_secure_installation
-  mysql_tzinfo_to_sql /usr/share/lib/zoneinfo | mysql -u root -p --force mysql
+
+  echo_blue "Instalando time_zone America/Sao_Paulo no mysql!"
+  mysql_tzinfo_to_sql /usr/share/zoneinfo/America/Sao_Paulo America/Sao_Paulo | mysql -u root -p mysql
 
   echo_green "Mysql instalado com sucesso!"
 fi
