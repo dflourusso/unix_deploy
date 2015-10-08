@@ -4,6 +4,7 @@
 set -e
 
 source $(dirname $(dirname $0))"/utils/colors.sh"
+source $(dirname $(dirname $0))"/utils/self_update.sh"
 
 source $(dirname $(dirname $0))"/lib/deploy/start"
 

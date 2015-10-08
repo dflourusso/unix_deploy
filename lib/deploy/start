@@ -3,7 +3,7 @@
 # Parar se ocorrer erro
 set -e
 
-source "$(dirname $(dirname $(dirname $0)))/utils/self_update.sh"
+self_update
 
 usage() {
   echo "Usage: $0

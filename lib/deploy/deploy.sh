@@ -8,6 +8,8 @@ APP_NAME=$1
 source $(dirname $(dirname $(dirname $0)))"/utils/colors.sh"
 source $(dirname $(dirname $(dirname $0)))"/utils/self_update.sh"
 
+self_update
+
 echo ''
 echo $'\e[32m###################################\e[0m'
 echo "Deploy na aplicacao $APP_NAME"
