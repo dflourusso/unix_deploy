@@ -32,7 +32,7 @@ source ~/.bashrc
 
 # Install Ruby
 echo_blue "Instalando ruby..."
-read -p "Qual versao do ruby deseja instalar? (Ex: 2.2.2): " ruby_version
+read -p "Qual versao do ruby deseja instalar? (Ex: 2.2.3): " ruby_version
 ~/.rbenv/bin/rbenv install $ruby_version
 ~/.rbenv/bin/rbenv global $ruby_version
 
