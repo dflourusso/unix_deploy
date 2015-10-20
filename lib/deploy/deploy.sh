@@ -131,5 +131,5 @@ else
   # Iniciando aplicacao
   /usr/bin/curl $APP_DOMAIN > /dev/null
 
-  echo $'\e[32mDeploy executado com sucesso!\e[0m'
+  echo $'\xf0\x9f\x8d\xba \e[32m Deploy executado com sucesso!\e[0m'
 fi
