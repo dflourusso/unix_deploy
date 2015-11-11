@@ -94,6 +94,9 @@ else
   echo -e "    passenger_env_var SECRET_KEY_BASE $SECRET_KEY_BASE_VALUE;" | sudo tee --append $APP_NGINX_CONF
   echo -e "Criado variavel de ambiente: SECRET_KEY_BASE\n"
 
+  echo -e "    passenger_env_var HOST_NAME $APP_DOMAIN;" | sudo tee --append $APP_NGINX_CONF
+  echo -e "Criado variavel de ambiente: HOST_NAME=$APP_DOMAIN\n"
+
   echo -e "    passenger_env_var DATABASE_NAME $APP_NAME;" | sudo tee --append $APP_NGINX_CONF
   echo -e "Criado variavel de ambiente: DATABASE_NAME=$APP_NAME\n"
 
