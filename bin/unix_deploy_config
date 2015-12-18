@@ -4,6 +4,7 @@
 set -e
 
 source $(dirname $(dirname $0))"/utils/colors.sh"
+source $(dirname $(dirname $0))"/utils/self_update.sh"
 
 read -p "Entre com o HOST do servidor que deseja configurar: " remote_host
 echo_blue "Instalando projeto no host \"$remote_host\""
