@@ -74,7 +74,7 @@ else
   # Configuracao do NGINX
   echo $'\e[34mConfigurando nginx...\e[0m'
   export APP_NGINX_CONF="/etc/nginx/sites-enabled/$APP_NAME.conf"
-  sudo wget -O $APP_NGINX_CONF https://gist.githubusercontent.com/dflourusso/bd8103650bc240dd02d6/raw/8a1f8b1e4910c94a47b251445a36194f58bef7ad/digital-ocean-debian-nginx.conf
+  sudo cp /home/$USER/.unix_deploy/lib/configuration/templates/nginx.conf $APP_NGINX_CONF
 
   while [[ -z "$APP_DOMAIN" ]]
   do

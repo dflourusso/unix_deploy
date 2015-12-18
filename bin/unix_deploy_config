@@ -8,11 +8,28 @@ source $(dirname $(dirname $0))"/utils/colors.sh"
 read -p "Entre com o HOST do servidor que deseja configurar: " remote_host
 echo_blue "Instalando projeto no host \"$remote_host\""
 
+# Instalar plugin no root
+ssh -T root@$remote_host "bash -s" < ~/.unix_deploy/lib/configuration/install.sh
 
-ssh -T root@$remote_host "bash -s" < "~/.unix_deploy/lib/configuration/install.sh"
-
+# Configuracoes globais e criacao de usuarios
 id_rsa_pub=$(cat ~/.ssh/id_rsa.pub)
 ssh -t root@$remote_host "~/.unix_deploy/lib/configuration/start '$id_rsa_pub'"
+
+# Configurar ambiente Ruby on Rails para um usuario
+read -p "Deseja configurar ambiente Ruby on Rails? (y/n): " environnent_config
+while [[ "$environnent_config" == 'y' ]]
+do
+  read -p "Digite o nome do usuario: " user_name
+
+  ssh -T $user_name@$remote_host "bash -s" < ~/.unix_deploy/lib/configuration/install.sh
+
+  ssh -t $user_name@$remote_host "/home/$user_name/.unix_deploy/lib/configuration/rails_environment.sh"
+
+  # sudo -H -u $user_name bash -c ~/.unix_deploy/lib/configuration/rails_environment.sh
+  echo_green "Usuario $user_name e configurado com sucesso!"
+
+  read -p "Configurar em outros usuarios? (y/n): " environnent_config
+done
 
 echo $'\xf0\x9f\x8d\xba \e[32m Instalacao concluida com sucesso!\e[0m'
 
