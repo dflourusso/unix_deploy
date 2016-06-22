@@ -68,7 +68,7 @@ else
   cd $APP_NAME
 
   echo $'\e[34mInstalando dependencias da aplicacao...\e[0m'
-  /home/$USER/.rbenv/shims/bundle install --deployment --without development test
+  /home/$USER/.rbenv/shims/bundle install --deployment --without heroku development test
 
 
   # Configuracao do NGINX
