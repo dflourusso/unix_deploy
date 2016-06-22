@@ -32,7 +32,7 @@ source ~/.bashrc
 
 # Install Ruby
 echo_blue "Instalando ruby..."
-read -p "Qual versao do ruby deseja instalar? (Ex: 2.2.3): " ruby_version
+read -p "Qual versao do ruby deseja instalar? (Ex: 2.3.1): " ruby_version
 ~/.rbenv/bin/rbenv install $ruby_version
 ~/.rbenv/bin/rbenv global $ruby_version
 
@@ -57,26 +57,36 @@ echo_blue "Instalando whenever..."
 echo_blue "Criando ssh keys..."
 ssh-keygen -t rsa
 
-# Install Passenger and Nginx
-echo_blue "Instalando passenger e nginx..."
-sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 561F9B9CAC40B2F7
-# echo 'deb https://oss-binaries.phusionpassenger.com/apt/passenger jessie main' | sudo tee --append /etc/apt/sources.list.d/passenger.list
-sudo sh -c 'echo deb https://oss-binaries.phusionpassenger.com/apt/passenger jessie main > /etc/apt/sources.list.d/passenger.list'
-sudo apt-get update
-sudo apt-get install -y nginx-extras passenger
-# sudo /home/$USER/.rbenv/shims/passenger-install-nginx-module
+echo_blue "Qual ruby server deseja utilizar?"
+echo_blue " 1 - Passenger + Nginx"
+echo_blue " 2 - Thin + Nginx"
+read -p "(1/2): " server_type
+if [ "$server_type" == 'y' ] ; then
+  # Install Passenger and Nginx
+  echo_blue "Instalando passenger e nginx..."
+  sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 561F9B9CAC40B2F7
+  # echo 'deb https://oss-binaries.phusionpassenger.com/apt/passenger jessie main' | sudo tee --append /etc/apt/sources.list.d/passenger.list
+  sudo sh -c 'echo deb https://oss-binaries.phusionpassenger.com/apt/passenger jessie main > /etc/apt/sources.list.d/passenger.list'
+  sudo apt-get update
+  sudo apt-get install -y nginx-extras passenger
+  # sudo /home/$USER/.rbenv/shims/passenger-install-nginx-module
 
-passenger_root_old='# passenger_root /usr/lib/ruby/vendor_ruby/phusion_passenger/locations.ini;'
-passenger_root_new="passenger_root $(/usr/bin/passenger-config --root);"
-sudo /usr/bin/replace "$passenger_root_old" "$passenger_root_new" -- /etc/nginx/nginx.conf
+  passenger_root_old='# passenger_root /usr/lib/ruby/vendor_ruby/phusion_passenger/locations.ini;'
+  passenger_root_new="passenger_root $(/usr/bin/passenger-config --root);"
+  sudo /usr/bin/replace "$passenger_root_old" "$passenger_root_new" -- /etc/nginx/nginx.conf
 
-echo_blue 'Reiniciando nginx...'
-sudo service nginx restart
-echo ''
-# echo_yellow 'Instalacao OK, agora abra => /etc/nginx/nginx.conf'
-# echo_yellow 'Altere "passenger_root" e "passenger_ruby" para seus locais corretos'
-# passenger_root $(/home/$USER/.rbenv/shims/passenger-config --root);
-# passenger_root /home/$USER/.rbenv/versions/2.2.2/lib/ruby/gems/2.2.0/gems/passenger-5.0.20;
-# passenger_ruby $(/home/$USER/.rbenv/shims/passenger-config about ruby-command | grep passenger_ruby);
-# passenger_ruby /home/$USER/.rbenv/versions/2.2.2/bin/ruby;
+  echo_blue 'Reiniciando nginx...'
+  sudo service nginx restart
+  echo ''
+
+  # echo_yellow 'Instalacao OK, agora abra => /etc/nginx/nginx.conf'
+  # echo_yellow 'Altere "passenger_root" e "passenger_ruby" para seus locais corretos'
+  # passenger_root $(/home/$USER/.rbenv/shims/passenger-config --root);
+  # passenger_root /home/$USER/.rbenv/versions/2.2.2/lib/ruby/gems/2.2.0/gems/passenger-5.0.20;
+  # passenger_ruby $(/home/$USER/.rbenv/shims/passenger-config about ruby-command | grep passenger_ruby);
+  # passenger_ruby /home/$USER/.rbenv/versions/2.2.2/bin/ruby;
+
+else
+    echo_blue "Instalando Thin..."
+fi
 echo_green "Ambiente Ruby on Rails instalado com sucesso!"
