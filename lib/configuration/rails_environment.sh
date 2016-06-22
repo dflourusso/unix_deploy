@@ -61,7 +61,7 @@ echo_blue "Qual ruby server deseja utilizar?"
 echo_blue " 1 - Passenger + Nginx"
 echo_blue " 2 - Thin + Nginx"
 read -p "(1/2): " server_type
-if [ "$server_type" == 'y' ] ; then
+if [ "$server_type" == '1' ] ; then
   # Install Passenger and Nginx
   echo_blue "Instalando passenger e nginx..."
   sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 561F9B9CAC40B2F7
@@ -87,6 +87,14 @@ if [ "$server_type" == 'y' ] ; then
   # passenger_ruby /home/$USER/.rbenv/versions/2.2.2/bin/ruby;
 
 else
+    # Install Thin
     echo_blue "Instalando Thin..."
+    /home/$USER/.rbenv/shims/gem install thin
+    sudo /home/$USER/.rbenv/shims/thin install
+    sudo /usr/sbin/update-rc.d -f thin defaults # Starts the service at login
+
+    # Install Nginx
+    echo_blue "Instalando Nginx..."
+    sudo apt-get install nginx
 fi
 echo_green "Ambiente Ruby on Rails instalado com sucesso!"

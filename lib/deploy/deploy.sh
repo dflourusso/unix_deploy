@@ -74,7 +74,17 @@ else
   # Configuracao do NGINX
   echo $'\e[34mConfigurando nginx...\e[0m'
   export APP_NGINX_CONF="/etc/nginx/sites-enabled/$APP_NAME.conf"
-  sudo cp /home/$USER/.unix_deploy/lib/configuration/templates/nginx.conf $APP_NGINX_CONF
+
+  echo_blue "Qual ruby server está utilizando?"
+  echo_blue " 1 - Passenger"
+  echo_blue " 2 - Thin"
+  read -p "(1/2): " server_type
+  if [ "$server_type" == '1' ] ; then
+    sudo cp /home/$USER/.unix_deploy/lib/configuration/templates/passenger-nginx.conf $APP_NGINX_CONF
+  else
+    sudo cp /home/$USER/.unix_deploy/lib/configuration/templates/thin-nginx.conf $APP_NGINX_CONF
+    sudo /home/$USER/.rbenv/shims/thin -C /etc/thin/$APP_NAME -c /home/$USER/apps/$APP_NAME --servers 3 -e production -p 3000
+  fi
 
   while [[ -z "$APP_DOMAIN" ]]
   do
