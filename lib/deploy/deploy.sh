@@ -83,7 +83,7 @@ else
     sudo cp /home/$USER/.unix_deploy/lib/configuration/templates/passenger-nginx.conf $APP_NGINX_CONF
   else
     sudo cp /home/$USER/.unix_deploy/lib/configuration/templates/thin-nginx.conf $APP_NGINX_CONF
-    sudo /home/$USER/.rbenv/shims/thin -C /etc/thin/$APP_NAME -c /home/$USER/apps/$APP_NAME --servers 3 -e production -p 3000
+    sudo /home/$USER/.rbenv/shims/thin -C /etc/thin/$APP_NAME.yml -c /home/$USER/apps/$APP_NAME --servers 3 -e production -p 3000
   fi
 
   while [[ -z "$APP_DOMAIN" ]]
