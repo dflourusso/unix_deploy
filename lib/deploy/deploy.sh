@@ -82,8 +82,8 @@ else
   if [ "$server_type" == '1' ] ; then
     sudo cp /home/$USER/.unix_deploy/lib/configuration/templates/passenger-nginx.conf $APP_NGINX_CONF
   else
-    sudo cp /home/$USER/.unix_deploy/lib/configuration/templates/thin-nginx.conf $APP_NGINX_CONF
     sudo /home/$USER/.rbenv/shims/thin -C /etc/thin/$APP_NAME.yml -c /home/$USER/apps/$APP_NAME --servers 3 -e production config
+    sudo cp /home/$USER/.unix_deploy/lib/configuration/templates/thin-nginx.conf $APP_NGINX_CONF
   fi
 
   while [[ -z "$APP_DOMAIN" ]]
@@ -95,7 +95,6 @@ else
   sudo /usr/bin/replace '[app_name]' $APP_NAME -- $APP_NGINX_CONF
   sudo /usr/bin/replace '[server_name]' $APP_DOMAIN -- $APP_NGINX_CONF
   sudo /usr/bin/replace '[user_name]' $USER -- $APP_NGINX_CONF
-
 
   # Variaveis de ambiente
   sudo /usr/bin/replace '}' '' -- $APP_NGINX_CONF
