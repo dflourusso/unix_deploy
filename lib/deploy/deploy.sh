@@ -48,10 +48,10 @@ _env_var_defaults() {
 _restart() {
   if grep -Fq "gem 'thin'" /home/$USER/apps/$APP_NAME/Gemfile
   then
-    echo $'\e[34mReiniciando thin and nginx...\e[0m'
-    bash /etc/init.d/thin restart /etc/init.d/nginx reload /etc/init.d/nginx restart
+    echo $'\e[34mReiniciando aplicacao (Thin + Nginx)...\e[0m'
+    sudo /etc/init.d/thin restart && /etc/init.d/nginx force-reload && /etc/init.d/nginx restart
   else
-    echo $'\e[34mReiniciando aplicacao...\e[0m'
+    echo $'\e[34mReiniciando aplicacao (Passenger + Nginx)...\e[0m'
     sudo service nginx restart
     sudo /usr/bin/passenger-config restart-app $(pwd)
   fi
