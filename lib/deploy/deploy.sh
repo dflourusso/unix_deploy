@@ -26,22 +26,22 @@ _whenever() {
 _add_env_var() {
   read -p "Nome da variavel de ambiente: " ENV_VAR_NAME
   read -p "Valor da variavel de ambiente: " ENV_VAR_VALUE
-  echo -e "$ENV_VAR_NAME=$ENV_VAR_VALUE;" | sudo tee --append $1
+  echo -e "$ENV_VAR_NAME=$ENV_VAR_VALUE" | sudo tee --append $1
 }
 
 _env_var_defaults() {
   SECRET_KEY_BASE_VALUE=$(RAILS_ENV=production /home/$USER/.rbenv/shims/bundle exec rake secret)
-  echo -e "SECRET_KEY_BASE $SECRET_KEY_BASE_VALUE;" | sudo tee --append $1
+  echo -e "SECRET_KEY_BASE=$SECRET_KEY_BASE_VALUE" | sudo tee --append $1
   echo -e "Criado variavel de ambiente: SECRET_KEY_BASE\n"
 
-  echo -e "HOST_NAME $APP_DOMAIN;" | sudo tee --append $1
+  echo -e "HOST_NAME=$APP_DOMAIN" | sudo tee --append $1
   echo -e "Criado variavel de ambiente: HOST_NAME=$APP_DOMAIN\n"
 
-  echo -e "DATABASE_NAME $APP_NAME;" | sudo tee --append $1
+  echo -e "DATABASE_NAME=$APP_NAME" | sudo tee --append $1
   echo -e "Criado variavel de ambiente: DATABASE_NAME=$APP_NAME\n"
 
   read -p "Qual a senha do banco de dados?: " DATABASE_PASSWORD
-  echo -e "DATABASE_PASSWORD $DATABASE_PASSWORD;" | sudo tee --append $1
+  echo -e "DATABASE_PASSWORD=$DATABASE_PASSWORD" | sudo tee --append $1
   echo -e "Criado variavel de ambiente: DATABASE_PASSWORD\n"
 }
 
