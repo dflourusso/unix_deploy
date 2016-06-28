@@ -49,7 +49,8 @@ _restart() {
   if grep -Fq "gem 'thin'" /home/$USER/apps/$APP_NAME/Gemfile
   then
     echo $'\e[34mReiniciando aplicacao (Thin + Nginx)...\e[0m'
-    sudo /etc/init.d/thin restart && sudo /etc/init.d/nginx force-reload && sudo /etc/init.d/nginx restart
+    bash /etc/init.d/thin restart
+    sudo /etc/init.d/nginx force-reload && sudo /etc/init.d/nginx restart
   else
     echo $'\e[34mReiniciando aplicacao (Passenger + Nginx)...\e[0m'
     sudo service nginx restart
