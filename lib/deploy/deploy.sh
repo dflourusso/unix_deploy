@@ -19,7 +19,7 @@ echo ''
 _whenever() {
   if [ -f config/schedule.rb ]; then
     echo $'\e[34mWhenever atualizando crontab...\e[0m'
-    /home/$USER/.rbenv/shims/whenever --update-crontab
+    RAILS_ENV=production /home/$USER/.rbenv/shims/whenever --update-crontab
   fi
 }
 
