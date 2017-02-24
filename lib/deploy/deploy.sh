@@ -54,7 +54,7 @@ _restart() {
   else
     echo $'\e[34mReiniciando aplicacao (Passenger + Nginx)...\e[0m'
     sudo service nginx restart
-    sudo /usr/bin/passenger-config restart-app $(pwd)
+    # sudo /usr/bin/passenger-config restart-app $(pwd)
   fi
 }
 
